@@ -7,6 +7,25 @@ const debug = Debug('informed:Controller' + '\t');
 
 const noop = () => {};
 class FormController extends EventEmitter {
+	public options: any;
+	public ajv: any;
+	public ajvValidate: any;
+	public fieldMap: any;
+	public fieldsById: any;
+	public fieldsByName: any;
+	public onScreen: any;
+	public expectedRemovals: any;
+	public pulledOut: any;
+	public savedValues: any;
+	public state: any;
+	public dummyField: any;
+	public updater: any;
+	public emit: any;
+	public formApi: any;
+	public on: any;
+	public schema: any;
+	public name: any;
+
   constructor(options = {}) {
     // Dont forget to call super! :)
     super();
@@ -283,18 +302,18 @@ class FormController extends EventEmitter {
     this.options = options;
   }
 
-  setValue(name, value, options) {
+  setValue(name, value?, options?) {
     this.getField(name).fieldApi.setValue(value, null, {
       allowEmptyString: this.options.allowEmptyStrings,
       ...options
     });
   }
 
-  setTouched(name, value) {
+  setTouched(name, value?) {
     this.getField(name).fieldApi.setTouched(value);
   }
 
-  setError(name, value) {
+  setError(name, value?) {
     this.getField(name).fieldApi.setError(value);
   }
 
@@ -308,7 +327,7 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
-  validated(name, error) {
+  validated(name, error?) {
     // Decrement the validating
     this.state.validating = this.state.validating - 1;
 
@@ -372,7 +391,7 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
-  setInitialValue(field, value) {
+  setInitialValue(field, value?) {
     ObjectMap.set(this.options.initialValues, field, value);
   }
 
@@ -717,7 +736,7 @@ class FormController extends EventEmitter {
 
   // ADDED initialRender parameter because of react 16.13.0 warning that does not like
   // setting initial value during first render
-  register(id, field, initialRender) {
+  register(id, field?, initialRender?) {
     const { field: name, state } = field;
     debug('Register ID:', id, 'Name:', name, state, 'Initial', initialRender);
 
@@ -870,7 +889,7 @@ class FormController extends EventEmitter {
     this.pulledOut[name] = true;
   }
 
-  update(id, field) {
+  update(id, field?) {
     const { field: name } = field;
     debug('Update', id, name, field.fieldState.value);
     const prevName = this.fieldsById.get(id).field;

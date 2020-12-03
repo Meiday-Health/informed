@@ -5,6 +5,10 @@ import Radio from './Radio';
 import asField from '../../HOC/asField';
 
 class RadioGroup extends Component {
+	public props: any;
+	public options: any;
+	public children: any;
+
   get groupContext() {
     return {
       radioGroupApi: {

@@ -147,7 +147,7 @@ const validateRequired = (value, required) => {
   }
 };
 
-function useField(fieldProps = {}, userRef) {
+function useField(fieldProps = {}, userRef?) {
   // Pull props off of field props
   const {
     field,
